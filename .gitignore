@@ -1,0 +1,8 @@
+/bin
+/Properties
+
+
+appsettings.Development.json
+appsettings.json
+employee-records.csproj
+employee-records.sln
