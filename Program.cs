@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 //specifying origins to support CORS
 builder.Services.AddCors(options =>
 {
@@ -17,7 +18,10 @@ builder.Services.AddCors(options =>
                       });
 });
 
-builder.Services.AddDbContext<EmployeeDb>(opt => opt.UseInMemoryDatabase("EmployeeList"));
+builder.Services.AddDbContext<EmployeeDb>(options =>{
+    options.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString));
+});
+
 // builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 var app = builder.Build();
@@ -28,7 +32,7 @@ app.MapGet("/", () =>
 
 //returns all employees
 app.MapGet("/all",async (EmployeeDb db)=> 
-                await db.Employees.ToListAsync());
+             await db.Employees.ToListAsync());
 
 
 //add a new employee
