@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>employeerecords</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    
+  </ItemGroup>
+
+  <ItemGroup>
+        <EmbeddedResource Include="Mappings\employee.hbm.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" /> -->
+    <PackageReference Include="NHibernate" Version="5.5.0" />
+    <PackageReference Include="NHibernate.Driver.MySqlConnector" Version="2.0.4" />
+    <PackageReference Include="NHibernate.Mapping.Attributes" Version="5.1.0" />
+    
+  </ItemGroup>
+
+</Project>

@@ -1,5 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Http.HttpResults;
+using NHibernate;
+using ORM.Extensions;
+
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -18,62 +22,45 @@ builder.Services.AddCors(options =>
                       });
 });
 
-builder.Services.AddDbContext<EmployeeDb>(options =>{
-    options.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString));
-});
 
-// builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+var sessionFactory = builder.Services.AddNHibernate(connectionString, (sessionFactory, config) => { });
+
+
+
+
+
 
 var app = builder.Build();
-app.UseCors(MyAllowSpecificOrigins); //enable CORS
-
-app.MapGet("/", () => 
-   "Helloo bruhh");
-
-//returns all employees
-app.MapGet("/all",async (EmployeeDb db)=> 
-             await db.Employees.ToListAsync());
 
 
-//add a new employee
-app.MapPost("/add",async (Employee employee,EmployeeDb db)=>{
-    db.Employees.Add(employee);
-    await db.SaveChangesAsync();
-    return "Done";
+app.MapGet("/demo",() => "Hello world, demo data");
+
+app.MapGet("/all",async() =>{
+    
+    var session = sessionFactory.OpenSession();
+    var employees = await session.CreateCriteria<Employee>().ListAsync<Employee>();
+    return employees;
 
 });
 
-//updating an existing employee
-app.MapPut("/update/{id}",async (int id,Employee InputEmployee,EmployeeDb db)=>{
-    var employee = await db.Employees.FindAsync(id);
-    if(employee is null) return Results.NotFound();
-   
-    employee.name = InputEmployee.name;
-    employee.dob = InputEmployee.dob;
-    employee.age = InputEmployee.age;
-    employee.gender = InputEmployee.gender;
-    employee.mobile = InputEmployee.mobile;
-   
-    await db.SaveChangesAsync();
+// app.MapGet("/get/{id}",async(string id)=>{
+//     var session  = factory.OpenSession();
+//     var employee = await session.GetAsync<Employee>(new Guid(id));
+//     return employee;
+// });
 
-    return Results.NoContent();
+// app.MapPost("/add",async (Employee employee)=>{
+//     var session = factory.OpenSession();
+//     var transaction = session.BeginTransaction();
 
-});
+//     var id = (Guid)await session.SaveAsync(employee);
+//     await transaction.CommitAsync();
+//     employee.Id = id;
+//     return "Employee Added";
 
+// });
 
-app.MapPost("/delete",async(DeleteData data,EmployeeDb db)=>{
-     foreach(var id in data.selectedIds){
-        if(await db.Employees.FindAsync(id) is Employee employee){
-            db.Employees.Remove(employee);
-        }
-     }
-      await db.SaveChangesAsync();
-      return Results.NoContent();
-
-});
-
-
-//deleing multiple records
 
 app.Run();
 

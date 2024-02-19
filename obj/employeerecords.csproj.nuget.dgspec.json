@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\dotnet-basics\\employee-records\\employee-records.csproj": {}
+    "D:\\dotnet-basics\\employeerecords\\employeerecords.csproj": {}
   },
   "projects": {
-    "D:\\dotnet-basics\\employee-records\\employee-records.csproj": {
+    "D:\\dotnet-basics\\employeerecords\\employeerecords.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\dotnet-basics\\employee-records\\employee-records.csproj",
-        "projectName": "employee-records",
-        "projectPath": "D:\\dotnet-basics\\employee-records\\employee-records.csproj",
+        "projectUniqueName": "D:\\dotnet-basics\\employeerecords\\employeerecords.csproj",
+        "projectName": "employeerecords",
+        "projectPath": "D:\\dotnet-basics\\employeerecords\\employeerecords.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\dotnet-basics\\employee-records\\obj\\",
+        "outputPath": "D:\\dotnet-basics\\employeerecords\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
