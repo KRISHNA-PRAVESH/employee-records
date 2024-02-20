@@ -3,8 +3,8 @@
       assembly="employeerecords"
     >
     <class name="Employee" table="Employees">
-        <id name="Id" column="id">
-            <generator class="guid.comb" />
+        <id name="Id" column="id" type="int">
+            
         </id>
         <property name="name" />
         <property name="dob" />
