@@ -1,5 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
+using System.Data;
+using Dapper;
+using MySql.Data.MySqlClient;
+
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -18,62 +20,62 @@ builder.Services.AddCors(options =>
                       });
 });
 
-builder.Services.AddDbContext<EmployeeDb>(options =>{
-    options.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString));
-});
 
-// builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+var connection = builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(connectionString));
 
 var app = builder.Build();
+
+
 app.UseCors(MyAllowSpecificOrigins); //enable CORS
 
-app.MapGet("/", () => 
-   "Helloo bruhh");
 
-//returns all employees
-app.MapGet("/all",async (EmployeeDb db)=> 
-             await db.Employees.ToListAsync());
+app.MapGet("/", () => "Hello World!");
 
+app.MapGet("/all",()=>{
+    IDbConnection dbConnection = new MySqlConnection(connectionString);
 
-//add a new employee
-app.MapPost("/add",async (Employee employee,EmployeeDb db)=>{
-    db.Employees.Add(employee);
-    await db.SaveChangesAsync();
-    return "Done";
+     var query = "SELECT * FROM employees";
+     var result = dbConnection.Query(query);
+
+     return result.ToList();
+});
+
+app.MapPost("/add",async(Employee employee)=>{
+     IDbConnection dbConnection = new MySqlConnection(connectionString);
+
+     var query =  "INSERT INTO employees (id,name,dob,age,gender,mobile) values (@Id,@name,@dob,@age,@gender,@mobile)";
+      dbConnection.Open();
+      await dbConnection.ExecuteAsync(query,employee);
+      dbConnection.Close();
+      return "saved";
 
 });
 
-//updating an existing employee
-app.MapPut("/update/{id}",async (int id,Employee InputEmployee,EmployeeDb db)=>{
-    var employee = await db.Employees.FindAsync(id);
-    if(employee is null) return Results.NotFound();
-   
-    employee.name = InputEmployee.name;
-    employee.dob = InputEmployee.dob;
-    employee.age = InputEmployee.age;
-    employee.gender = InputEmployee.gender;
-    employee.mobile = InputEmployee.mobile;
-   
-    await db.SaveChangesAsync();
-
-    return Results.NoContent();
+app.MapPut("/update/{id}",async (int id,Employee InputEmployee)=>{
+    
+    IDbConnection dbConnection = new MySqlConnection(connectionString);
+    var query = "UPDATE  employees SET name=@name ,dob=@dob, age=@age, gender=@gender, mobile=@mobile where id = @Id";
+    dbConnection.Open();
+    await dbConnection.ExecuteAsync(query,InputEmployee);
+    dbConnection.Close();
+    return "Updated";
 
 });
 
+app.MapPost("/delete",(DeleteData data)=>{
+    IDbConnection dbConnection = new MySqlConnection(connectionString);
 
-app.MapPost("/delete",async(DeleteData data,EmployeeDb db)=>{
+     dbConnection.Open();
      foreach(var id in data.selectedIds){
-        if(await db.Employees.FindAsync(id) is Employee employee){
-            db.Employees.Remove(employee);
-        }
+         var query = $"DELETE FROM employees WHERE id = {id}";
+         dbConnection.Query(query);
      }
-      await db.SaveChangesAsync();
-      return Results.NoContent();
+    dbConnection.Close();
+    
+    return "Deleted";
 
 });
 
-
-//deleing multiple records
 
 app.Run();
 
