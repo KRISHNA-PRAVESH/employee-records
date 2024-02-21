@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZerBfVD2ReEYfxkMXL9AgSNjwkbAzS5nYvkLadKRnK2mFitQ/Jq/3bKr/btkkjNsiCkzI+9pqY33lGS0VDadMQ==",
+  "dgSpecHash": "74M73e8tL7cZG72S191qYvXvFjoMBAHR2ErWyCqOjUYFmILFX2lYg6OjxeLZ6PxtcZpAnLzGa2aNeY7pB3hJMw==",
   "success": true,
   "projectFilePath": "D:\\dotnet-basics\\employeerecords\\employee-records.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\mysql.data\\8.3.0\\mysql.data.8.3.0.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\petapoco.core.compiled\\5.1.305\\petapoco.core.compiled.5.1.305.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.1\\system.configuration.configurationmanager.4.4.1.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\system.diagnostics.diagnosticsource\\7.0.2\\system.diagnostics.diagnosticsource.7.0.2.nupkg.sha512",
@@ -38,5 +39,16 @@
     "C:\\Users\\USER\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\zstdsharp.port\\0.7.1\\zstdsharp.port.0.7.1.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'PetaPoco.Core.Compiled 5.1.305' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "PetaPoco.Core.Compiled",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

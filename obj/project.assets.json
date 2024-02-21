@@ -175,6 +175,19 @@
           }
         }
       },
+      "PetaPoco.Core.Compiled/5.1.305": {
+        "type": "package",
+        "compile": {
+          "lib/net46/PetaPoco.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net46/PetaPoco.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "System.Buffers/4.5.1": {
         "type": "package",
         "compile": {
@@ -770,6 +783,26 @@
         "runtimes/win-x64/native/k5sprt64.dll",
         "runtimes/win-x64/native/krb5_64.dll",
         "runtimes/win-x64/native/krbcc64.dll"
+      ]
+    },
+    "PetaPoco.Core.Compiled/5.1.305": {
+      "sha512": "/7Ua42BfMCMrffpop+6w40JuekvW/dZG/lbrkQcOQD/9g/q1E4/tK0y+EAcZYx1457bzl6ceCL5a+eFKOm+7kA==",
+      "type": "package",
+      "path": "petapoco.core.compiled/5.1.305",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/PetaPoco.dll",
+        "lib/net40/PetaPoco.pdb",
+        "lib/net40/PetaPoco.xml",
+        "lib/net45/PetaPoco.dll",
+        "lib/net45/PetaPoco.pdb",
+        "lib/net45/PetaPoco.xml",
+        "lib/net46/PetaPoco.dll",
+        "lib/net46/PetaPoco.pdb",
+        "lib/net46/PetaPoco.xml",
+        "petapoco.core.compiled.5.1.305.nupkg.sha512",
+        "petapoco.core.compiled.nuspec"
       ]
     },
     "System.Buffers/4.5.1": {
@@ -1817,7 +1850,8 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Dapper >= 2.1.28",
-      "MySql.Data >= 8.3.0"
+      "MySql.Data >= 8.3.0",
+      "PetaPoco.Core.Compiled >= 5.1.305"
     ]
   },
   "packageFolders": {
@@ -1871,6 +1905,10 @@
           "MySql.Data": {
             "target": "Package",
             "version": "[8.3.0, )"
+          },
+          "PetaPoco.Core.Compiled": {
+            "target": "Package",
+            "version": "[5.1.305, )"
           }
         },
         "imports": [
@@ -1895,5 +1933,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'PetaPoco.Core.Compiled 5.1.305' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "PetaPoco.Core.Compiled",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

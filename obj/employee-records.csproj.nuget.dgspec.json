@@ -52,6 +52,10 @@
             "MySql.Data": {
               "target": "Package",
               "version": "[8.3.0, )"
+            },
+            "PetaPoco.Core.Compiled": {
+              "target": "Package",
+              "version": "[5.1.305, )"
             }
           },
           "imports": [

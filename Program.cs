@@ -1,13 +1,13 @@
 using System.Data;
-using Dapper;
+using PetaPoco;
 using MySql.Data.MySqlClient;
+using PetaPoco.Providers;
 
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 //specifying origins to support CORS
 builder.Services.AddCors(options =>
 {
@@ -21,7 +21,12 @@ builder.Services.AddCors(options =>
 });
 
 
-var connection = builder.Services.AddTransient<MySqlConnection>(_ => new MySqlConnection(connectionString));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+var db = DatabaseConfiguration.Build()
+            .UsingConnectionString(connectionString)
+            .UsingProvider<MySqlDatabaseProvider>()
+            .Create();
 
 var app = builder.Build();
 
@@ -32,52 +37,35 @@ app.UseCors(MyAllowSpecificOrigins); //enable CORS
 app.MapGet("/", () => "Hello World!");
 
 app.MapGet("/all",()=>{
-    IDbConnection dbConnection = new MySqlConnection(connectionString);
+    var query = "SELECT * FROM employees";
+    var result = db.Query<Employee>(query);
 
-     var query = "SELECT * FROM employees";
-     var result = dbConnection.Query(query);
-
-     return result.ToList();
+    return result.ToList();
 });
 
 app.MapPost("/add",async(Employee employee)=>{
-     IDbConnection dbConnection = new MySqlConnection(connectionString);
 
-     var query =  "INSERT INTO employees (id,name,dob,age,gender,mobile) values (@Id,@name,@dob,@age,@gender,@mobile)";
-      dbConnection.Open();
-      await dbConnection.ExecuteAsync(query,employee);
-      dbConnection.Close();
-      return "saved";
-
+    //  var query = "INSERT INTO employees (id,name,dob,age,gender,mobile) values (@Id,@name,@dob,@age,@gender,@mobile)";
+    //  db.Execute(query,employee);
+    db.Insert("employees","Id",employee);
+     return "Saved";
 });
 
-app.MapPut("/update/{id}",async (int id,Employee InputEmployee)=>{
-    
-    IDbConnection dbConnection = new MySqlConnection(connectionString);
-    var query = "UPDATE  employees SET name=@name ,dob=@dob, age=@age, gender=@gender, mobile=@mobile where id = @Id";
-    dbConnection.Open();
-    await dbConnection.ExecuteAsync(query,InputEmployee);
-    dbConnection.Close();
+app.MapPut("/update/{id}",(int id,Employee InputEmployee)=>{
+    db.Update("employees","Id",InputEmployee);
     return "Updated";
-
 });
 
 app.MapPost("/delete",(DeleteData data)=>{
-    IDbConnection dbConnection = new MySqlConnection(connectionString);
-
-     dbConnection.Open();
-     foreach(var id in data.selectedIds){
+    foreach(var id in data.selectedIds){
          var query = $"DELETE FROM employees WHERE id = {id}";
-         dbConnection.Query(query);
+         db.Execute(query);
      }
-    dbConnection.Close();
-    
-    return "Deleted";
-
+    return "deleted";
 });
 
-
 app.Run();
+
 
 // [
 //     {
