@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MdW1numjOGd0M++JIzE5IayyLDuoagcYAIYpKhYaiyBCquHE2pn6YmYO1uwYnwumSGNxY4oIxRNjcCDbGvBGlA==",
+  "dgSpecHash": "imYNcAq9+A7WwymmYzZBMNSAWOJKAtBMGD+6j0SvQLiQTD+VP4HX5vi2lrihi04nWvWa88donK/S4O68PIbWqw==",
   "success": true,
-  "projectFilePath": "D:\\dotnet-basics\\employee-records\\employee-records.csproj",
+  "projectFilePath": "D:\\dotnet-basics\\employeerecords\\employee-records.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

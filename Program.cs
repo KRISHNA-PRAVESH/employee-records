@@ -43,6 +43,8 @@ app.MapPost("/add",async (Employee employee,EmployeeDb db)=>{
 
 });
 
+
+
 //updating an existing employee
 app.MapPut("/update/{id}",async (int id,Employee InputEmployee,EmployeeDb db)=>{
     var employee = await db.Employees.FindAsync(id);
