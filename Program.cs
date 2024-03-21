@@ -76,7 +76,7 @@ app.MapPost("/delete",async(DeleteData data,EmployeeDb db)=>{
 
 
 //deleing multiple records
-
+Console.WriteLine("App is running on port:<>");
 app.Run();
 
 // [
